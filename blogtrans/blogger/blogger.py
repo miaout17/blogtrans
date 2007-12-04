@@ -8,8 +8,10 @@ import atom
 import getopt
 import sys
 
-from blogtrans.data import *
 from datetime import datetime
+
+from blogtrans.data import *
+from blogtrans.util.HTMLStripper import StripHTML
 
 class Blogger:
   def __init__(self, email, password):
@@ -55,6 +57,7 @@ class Blogger:
     entry.updated = atom.Updated(datetext)
    
     entry.title = atom.Title(title_type='xhtml', text=article.title)
+    entry.category.append(atom.Category(scheme="http://www.blogger.com/atom/ns#", term="test"))
     entry.content = atom.Content(content_type='html', text=article.body)
     
     if article.status!=article.PUBLISH :
@@ -72,5 +75,5 @@ class Blogger:
     # Create a new entry for the comment and submit it to the GDataService
     entry = gdata.GDataEntry()
     #atom.Author(atom.Name(text="Tester"))
-    entry.content = atom.Content(content_type='xhtml', text=comment.body)
+    entry.content = atom.Content(content_type='xhtml', text=StripHTML(comment.body) )
     return self.service.Post(entry, feed_uri)
