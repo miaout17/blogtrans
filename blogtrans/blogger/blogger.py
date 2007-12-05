@@ -1,3 +1,5 @@
+# coding=big5
+
 try:
   from xml.etree import ElementTree # for Python 2.5 users
 except:
@@ -57,7 +59,8 @@ class Blogger:
     entry.updated = atom.Updated(datetext)
    
     entry.title = atom.Title(title_type='xhtml', text=article.title)
-    entry.category.append(atom.Category(scheme="http://www.blogger.com/atom/ns#", term="test"))
+    for category_name in article.category :
+      entry.category.append(atom.Category(scheme="http://www.blogger.com/atom/ns#", term=category_name))
     entry.content = atom.Content(content_type='html', text=article.body)
     
     if article.status!=article.PUBLISH :
@@ -75,5 +78,10 @@ class Blogger:
     # Create a new entry for the comment and submit it to the GDataService
     entry = gdata.GDataEntry()
     #atom.Author(atom.Name(text="Tester"))
-    entry.content = atom.Content(content_type='xhtml', text=StripHTML(comment.body) )
+    
+    body = u"原作者: %s\n" % comment.author
+    body += u"張貼時間: %s\n" % comment.date.strftime("%Y-%m-%dT%I:%M:%S.000-08:00")
+    body += StripHTML(comment.body)
+    
+    entry.content = atom.Content(content_type='xhtml', text=body )
     return self.service.Post(entry, feed_uri)

@@ -3,6 +3,7 @@ import wx._core as wx
 
 from blogtrans.blogger.blogger import *
 from ProgressDialog import ProgressDialog
+import sys, traceback
 
 ID_CANCEL = wx.NewId()
 ID_OK = wx.NewId()
@@ -16,22 +17,27 @@ class BloggerExportProgress(ProgressDialog) :
     self.blogdata = blogdata
     
   def _Run(self) :
-    for article in self.blogdata.articles :
-      self.Print(u"正在匯出文章: %s" % article.title)
-      
-      if self.user_break : return
-      post = self.blogger.CreatePost(article)
-      
-      self_id = post.id.text 
-      tokens = self_id.split("-")
-      article_id = tokens[-1]
-      
-      for comment in article.comments :
+    try:
+      for article in self.blogdata.articles :
+        self.Print(u"正在匯出文章: %s" % article.title)
+        
         if self.user_break : return
-        self.Print(u"正在匯出留言: %s" % comment.author)
-        self.blogger.CreateComment(article_id, comment)
+        post = self.blogger.CreatePost(article)
         
+        self_id = post.id.text 
+        tokens = self_id.split("-")
+        article_id = tokens[-1]
         
+        for comment in article.comments :
+          if self.user_break : return
+          self.Print(u"正在匯出留言: %s" % comment.author)
+          self.blogger.CreateComment(article_id, comment)
+    except Exception, inst :
+      type, value, tb = sys.exc_info()
+      self.Print("\n".join(traceback.format_exception(type, value, tb)) )
+      self.status = self.FAIL
+      self.Print("無法上傳文章!!\n可能是由於超過每天50篇的限制")
+      
     
 
 class BloggerAuthUI(wx.Dialog) :
@@ -66,7 +72,7 @@ class BloggerAuthUI(wx.Dialog) :
     panel4 = wx.Panel(self, -1)
     sizer4 = wx.GridSizer(1, 2, 2, 2)
     
-    button_ok = wx.Button(panel4, ID_OK, '選定Blog')
+    button_ok = wx.Button(panel4, ID_OK, '開始匯出')
     button_close = wx.Button(panel4, ID_CANCEL, '取消並關閉')
     sizer4.Add(button_ok, wx.EXPAND)
     sizer4.Add(button_close, wx.EXPAND)

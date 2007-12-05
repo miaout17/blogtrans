@@ -2,6 +2,7 @@
 
 import wx._core as wx
 from threading import *
+import sys, traceback
 
 ID_BREAK = wx.NewId()
 ID_CLOSE = wx.NewId()
@@ -68,12 +69,20 @@ class ProgressDialog(wx.Dialog) :
   
   def Run(self) :
     #Todo: ERROR Handling HERE!!!!!! .... Catch exception!!!!!
-    self._Run()
-    
-    if self.user_break :
-      self.status = self.BREAK
+    try:
+      self._Run()
+    except Exception, inst :
+      type, value, tb = sys.exc_info()
+      self.Print("\n".join(traceback.format_exception(type, value, tb)) )
+      self.Print("µo¥Í¿ù»~!!")
+      
+    if self.status == self.FAIL :
+      pass
     else :
-      self.status = self.FINISH
+      if self.user_break :
+        self.status = self.BREAK
+      else :
+        self.status = self.FINISH
     self.ChangeButtonStatus()    
   
   def _Run(self) :
