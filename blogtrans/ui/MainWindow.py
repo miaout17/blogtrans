@@ -10,7 +10,7 @@ from ProgressDialog import *
 
 from blogtrans.data import *
 from blogtrans.wretch.WretchImporter import WretchImporter
-from blogtrans.mt.MTImporter import MTImporter
+from blogtrans.mt import *
 
 from BloggerUI import *
 
@@ -18,6 +18,7 @@ ID_IMPORT_WRETCH = wx.NewId()
 ID_IMPORT_MT = wx.NewId()
 
 ID_EXPORT_BLOGGER = wx.NewId()
+ID_EXPORT_MT = wx.NewId()
 
 class MainWindow(wx.Frame):
 
@@ -35,6 +36,9 @@ class MainWindow(wx.Frame):
     export_menu = wx.Menu()
     export_menu.Append(ID_EXPORT_BLOGGER, "Blogger(&B)...","匯出至Blogger網站")
     wx.EVT_MENU(self, ID_EXPORT_BLOGGER, self.OnExportBlogger)
+
+    export_menu.Append(ID_EXPORT_MT, "&MT檔案...","匯出至MT檔案")
+    wx.EVT_MENU(self, ID_EXPORT_MT, self.OnExportMT)
     
     menuBar = wx.MenuBar()
     menuBar.Append(import_menu,"匯入(&I)")
@@ -123,6 +127,20 @@ class MainWindow(wx.Frame):
     mi = MTImporter(filename)
     blogdata = mi.parse()
     self.setBlogData(blogdata)
+
+  def OnExportMT(self, e) :
+    checked_data = self.GetCheckedBlogData()
+    dialog = wx.FileDialog(self, style=wx.SAVE|wx.OVERWRITE_PROMPT)
+    result = dialog.ShowModal()
+    dialog.Destroy()
+    if result != wx.ID_OK :
+      return
+    else :
+      file = dialog.GetFilename()
+      dir = dialog.GetDirectory()
+      filename = os.path.join(dir, file)
+    me = MTExporter(filename, checked_data)
+    me.Export()
     
   def OnExportBlogger(self, e) :
     checked_data = self.GetCheckedBlogData()
