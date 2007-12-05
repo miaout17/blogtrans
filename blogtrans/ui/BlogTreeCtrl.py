@@ -33,7 +33,7 @@ class BlogTreeCtrl(CustomTreeCtrl) :
       
       for comment in article.comments :
         #print comment.author
-        comment_item = self.AppendItem(article_item, comment.author+" 的回應", ct_type=1, data=comment)
+        comment_item = self.AppendItem(article_item, comment.author+u" 的回應", ct_type=1, data=comment)
         self.CheckItem(comment_item)
     self.Expand(root)
     

@@ -10,10 +10,13 @@ from ProgressDialog import *
 
 from blogtrans.data import *
 from blogtrans.wretch.WretchImporter import WretchImporter
+from blogtrans.mt.MTImporter import MTImporter
 
 from BloggerUI import *
 
 ID_IMPORT_WRETCH = wx.NewId()
+ID_IMPORT_MT = wx.NewId()
+
 ID_EXPORT_BLOGGER = wx.NewId()
 
 class MainWindow(wx.Frame):
@@ -22,8 +25,12 @@ class MainWindow(wx.Frame):
   
     #Todo: use a smarter way to manage menu...
     import_menu = wx.Menu()
-    import_menu.Append(ID_IMPORT_WRETCH, "無名XML檔案(&W)...","從無名XML檔案匯入")
+    
+    import_menu.Append(ID_IMPORT_WRETCH, "無名XML檔案(&W)...","匯入無名XML檔案")
     wx.EVT_MENU(self, ID_IMPORT_WRETCH, self.OnImportWretch)
+    
+    import_menu.Append(ID_IMPORT_MT, "&MT檔案...","匯入MT Import檔案")
+    wx.EVT_MENU(self, ID_IMPORT_MT, self.OnImportMT)
     
     export_menu = wx.Menu()
     export_menu.Append(ID_EXPORT_BLOGGER, "Blogger(&B)...","匯出至Blogger網站")
@@ -55,7 +62,7 @@ class MainWindow(wx.Frame):
     self.__init_menubar()
     self.CreateStatusBar()
     
-    self.OnImportWretch(None)
+    #self.OnImportWretch(None)
     
     #self.sizer.Fit(self)
     self.Show(True)
@@ -100,6 +107,21 @@ class MainWindow(wx.Frame):
     
     wi = WretchImporter(filename)
     blogdata = wi.parse()
+    self.setBlogData(blogdata)
+
+  def OnImportMT(self, e) :
+    dialog = wx.FileDialog(self)
+    result = dialog.ShowModal()
+    dialog.Destroy()
+    if result != wx.ID_OK :
+      return
+    else :
+      file = dialog.GetFilename()
+      dir = dialog.GetDirectory()
+      filename = os.path.join(dir, file)
+      
+    mi = MTImporter(filename)
+    blogdata = mi.parse()
     self.setBlogData(blogdata)
     
   def OnExportBlogger(self, e) :
