@@ -38,6 +38,10 @@ class MTExporter :
       f.write(u"BODY: \n")
       f.write(a.body)
       f.write(u"\n-----\n")
+      if (a.extended_body != "") :
+        f.write(u"EXTENDED BODY: \n")
+        f.write(a.extended_body)
+        f.write(u"\n-----\n")
       for c in a.comments :
         f.write(u"COMMENT:\n")
         f.write(u"AUTHOR: %s\n" % c.author)

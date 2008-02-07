@@ -32,7 +32,7 @@ class BlogHtmlWindow(HtmlWindow):
     else : status = u"¨p±K"
     info.append(u"ª¬ºA: "+status)
     
-    self.SetPage(make_html_list(info)+article.body)
+    self.SetPage(make_html_list(info)+article.body+article.extended_body)
     
   def ShowComment(self, comment) :
     info = []

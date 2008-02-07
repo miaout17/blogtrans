@@ -61,7 +61,7 @@ class Blogger:
     entry.title = atom.Title(title_type='xhtml', text=article.title)
     for category_name in article.category :
       entry.category.append(atom.Category(scheme="http://www.blogger.com/atom/ns#", term=category_name))
-    entry.content = atom.Content(content_type='html', text=article.body)
+    entry.content = atom.Content(content_type='html', text=article.body+article.extended_body)
     
     if article.status!=article.PUBLISH :
       control = atom.Control()

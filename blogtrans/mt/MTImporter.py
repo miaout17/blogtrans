@@ -10,9 +10,16 @@ import gdata
 import atom
 import getopt
 import sys
+import re
 from datetime import datetime
 
 from blogtrans.data import *
+
+def parse_date(string) :
+  if re.compile("\d\d/\d\d/\d\d\d\d").match(string) :
+    return datetime.strptime(string, "%m/%d/%Y %I:%M:%S %p")
+  return datetime.strptime(string, "%m/%d/%y %I:%M:%S %p")
+  
 
 class MTImporter :
   def __init__(self, filename) :
@@ -50,7 +57,7 @@ class MTImporter :
         elif key == "IP" :
           comment.ip = value
         elif key == "DATE" :
-          comment.date = datetime.strptime(value, "%m/%d/%y %I:%M:%S %p")
+          comment.date = parse_date(value)
       else :
         break
 
@@ -65,7 +72,7 @@ class MTImporter :
     
     single_line = set(["AUTHOR", "TITLE", "DATE", "PRIMARY CATEGORY", "CATEGORY", "STATUS",
                        "ALLOW COMMENTS", "ALLOW PINGS", "CONVERT BREAKS", "NO ENTRY"])
-    multi_line = set(["BODY", "EXCERPT", "COMMENT", "PING"])
+    multi_line = set(["BODY", "EXTENDED BODY", "EXCERPT", "COMMENT", "PING"])
 
     in_multi_line = False
     for i in range(0, len(text) ) :
@@ -79,7 +86,8 @@ class MTImporter :
             #entry["COMMENT"].append(comment)
           elif key=="BODY":
             article.body = "".join(text[in_multi_line:i])
-            #entry[key] = "".join(text[in_multi_line:i])
+          elif key=="EXTENDED BODY":
+            article.extended_body = "".join(text[in_multi_line:i])
           in_multi_line = False
       else :
         tmp = line.split(":", 1)
@@ -93,7 +101,7 @@ class MTImporter :
           elif key == "AUTHOR" :
             article.author = value
           elif key == "DATE" :
-            article.date = datetime.strptime(value, "%m/%d/%y %I:%M:%S %p")
+            article.date = parse_date(value)
           elif key == "PRIMARY CATEGORY" or key == "CATEGORY" :
             article.category.append(value)
           elif key == "STATUS" :
