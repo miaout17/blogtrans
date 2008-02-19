@@ -36,7 +36,11 @@ class Blogger:
     for entry in feed.entry:
       blog_id = entry.GetSelfLink().href.split('/')[-1]
       blog_name = entry.title.text
-      print blog_id+"\t" + blog_name
+      #blog_name = unicode(blog_name)
+	  
+      print blog_id+"\t" + blog_name+"\t"
+      print type(blog_name)
+	  
       self.blogids.append( blog_id )
       self.blognames.append( blog_name )
       
