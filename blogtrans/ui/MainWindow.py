@@ -12,7 +12,7 @@ from blogtrans.data import *
 from blogtrans.wretch.WretchImporter import WretchImporter
 from blogtrans.mt import *
 
-from BloggerUI import *
+from blogtrans.blogger.BloggerExporter import *
 
 ID_IMPORT_WRETCH = wx.NewId()
 ID_IMPORT_MT = wx.NewId()
@@ -34,7 +34,7 @@ class MainWindow(wx.Frame):
     wx.EVT_MENU(self, ID_IMPORT_MT, self.OnImportMT)
     
     export_menu = wx.Menu()
-    export_menu.Append(ID_EXPORT_BLOGGER, "Blogger(&B)...","匯出至Blogger網站")
+    export_menu.Append(ID_EXPORT_BLOGGER, "Blogger(&B)...","匯出至Blogger XML")
     wx.EVT_MENU(self, ID_EXPORT_BLOGGER, self.OnExportBlogger)
 
     export_menu.Append(ID_EXPORT_MT, "&MT檔案...","匯出至MT檔案")
@@ -144,27 +144,17 @@ class MainWindow(wx.Frame):
     
   def OnExportBlogger(self, e) :
     checked_data = self.GetCheckedBlogData()
-    
-    article_num = checked_data.GetArticleCount() 
-    if article_num > 50 :
-      text =  "Blogger每天最多可以張貼50篇文章\n"
-      text += "您目前選定的數量為%i篇\n" % article_num
-      text += "多餘的文章可能無法上傳\n"
-      text += "要繼續嗎?\n"
-      dialog = wx.MessageDialog(self, text, "警告", wx.YES_NO)
-      result = dialog.ShowModal()
-      dialog.Destroy()
-      if result == wx.ID_NO : return
-      
-    dialog = BloggerAuthUI(self)
-    dialog.ShowModal()
+    dialog = wx.FileDialog(self, style=wx.SAVE|wx.OVERWRITE_PROMPT)
+    result = dialog.ShowModal()
     dialog.Destroy()
-    
-    blogger = dialog.blogger
-    if not blogger : return
-    
-    dialog = BloggerExportProgress(self, blogger, checked_data)
-    dialog.ShowModal()
+    if result != wx.ID_OK :
+      return
+    else :
+      file = dialog.GetFilename()
+      dir = dialog.GetDirectory()
+      filename = os.path.join(dir, file)
+    me = BloggerExporter(filename, checked_data)
+    me.Export()
     
   
   def OnSelChanged(self, e) :
