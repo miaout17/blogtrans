@@ -51,6 +51,7 @@ class BloggerExporter :
     generator.text = "Blogger"
 
     aid = 1
+    cid = 1
     
     for a in self.blogdata.articles :
       entry = SubElement(feed, "entry")
@@ -62,6 +63,11 @@ class BloggerExporter :
       category = SubElement(entry, "category")
       category.attrib["scheme"]="http://schemas.google.com/g/2005#kind" 
       category.attrib["term"]="http://schemas.google.com/blogger/2008/kind#post"
+      
+      for i, v in enumerate(a.category):
+        category = SubElement(entry, "category")
+        category.attrib["scheme"]="http://www.blogger.com/atom/ns#"
+        category.attrib["term"]= v
       
       title = SubElement(entry, "title")
       title.attrib["type"]="text"
@@ -85,9 +91,63 @@ class BloggerExporter :
       author = SubElement(entry, "author")
       SubElement(author, "name").text = "test123456"
       SubElement(author, "uri").text = "http://www.blogger.com/profile/1"
-      SubElement(author, "email").text = "noreply@blogger.com"      
-      
+      SubElement(author, "email").text = "noreply@blogger.com"
+
       aid = aid + 1
+      
+    aid = 1
+    cid = 1
+    
+    for a in self.blogdata.articles :
+      for c in a.comments :
+        centry = SubElement(feed, "entry")
+        SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
+        time_str = c.date.strftime("%Y-%m-%dT%I:%M:%S.000+08:00") 
+        SubElement(centry, "published").text = time_str 
+        SubElement(centry, "updated").text = time_str
+
+        category = SubElement(centry, "category")
+        category.attrib["scheme"]="http://schemas.google.com/g/2005#kind" 
+        category.attrib["term"]="http://schemas.google.com/blogger/2008/kind#comment"
+
+      
+        
+        title = SubElement(centry, "title")
+        title.attrib["type"]="text"
+        title.text = "Title"
+          
+        content = SubElement(centry, "content")
+        content.attrib["type"] = "html"
+        content.text = c.body
+        
+        
+        link = SubElement(centry, "link")
+        link.attrib["rel"]="alternate"
+        link.attrib["type"]="text/html"
+        link.attrib["href"]="http://gfsgdfg.blogspot.com/2008/09/article2.html?showComment=" + str(cid) + "#c2499467377739779311"
+        link.attrib["title"]=""
+
+        link = SubElement(centry, "link")
+        link.attrib["rel"]="self"
+        link.attrib["type"]="application/atom+xml"
+        link.attrib["href"]="http://www.blogger.com/feeds/1/comments/default/" + str(cid)
+        
+        author = SubElement(centry, "author")
+        if c.author != "" :
+          SubElement(author, "name").text = c.author
+        else :
+          SubElement(author, "name").text = "Anonymous"
+        SubElement(author, "uri").text = "http://www.blogger.com/profile/1"
+        SubElement(author, "email").text = "noreply@blogger.com"
+        
+        thr = SubElement(centry, "thr:in-reply-to")
+        thr.attrib["href"]="http://www.blogger.com/feeds/1/posts/default/" + str(aid)
+        thr.attrib["ref"]="tag:blogger.com,1999:blog-1.post-" + str(aid)
+        thr.attrib["type"] = "application/atom+xml"
+        
+        cid = cid + 1    
+      aid = aid + 1
+      
     
     ElementTree(feed).write(self.filename, "utf-8")
     return;
