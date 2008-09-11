@@ -65,6 +65,8 @@ class BloggerExporter :
       category.attrib["term"]="http://schemas.google.com/blogger/2008/kind#post"
       
       for i, v in enumerate(a.category):
+        if v=="":
+          continue
         category = SubElement(entry, "category")
         category.attrib["scheme"]="http://www.blogger.com/atom/ns#"
         category.attrib["term"]= v

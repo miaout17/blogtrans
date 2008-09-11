@@ -17,8 +17,14 @@ from blogtrans.data import *
 
 def parse_date(string) :
   if re.compile("\d\d/\d\d/\d\d\d\d").match(string) :
-    return datetime.strptime(string, "%m/%d/%Y %I:%M:%S %p")
-  return datetime.strptime(string, "%m/%d/%y %I:%M:%S %p")
+    try:
+      return datetime.strptime(string, "%m/%d/%Y %I:%M:%S %p")
+    except:
+      return datetime.strptime(string, "%m/%d/%Y %I:%M:%S")
+  try:
+    return datetime.strptime(string, "%m/%d/%y %I:%M:%S %p")
+  except:
+    return datetime.strptime(string, "%m/%d/%y %I:%M:%S")
   
 
 class MTImporter :
