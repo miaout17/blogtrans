@@ -146,7 +146,10 @@ class BloggerExporter :
           SubElement(author, "name").text = c.author
         else :
           SubElement(author, "name").text = "Anonymous"
-        SubElement(author, "uri").text = "http://www.blogger.com/profile/1"
+        
+        if c.url != "" :
+          SubElement(author, "uri").text = c.url
+        
         SubElement(author, "email").text = "noreply@blogger.com"
         
         thr = SubElement(centry, "thr:in-reply-to")
