@@ -20,12 +20,12 @@ def parse_date(string) :
     try:
       return datetime.strptime(string, "%m/%d/%Y %I:%M:%S %p")
     except:
-      return datetime.strptime(string, "%m/%d/%Y %I:%M:%S")
+      return datetime.strptime(string, "%m/%d/%Y %H:%M:%S")
   try:
     return datetime.strptime(string, "%m/%d/%y %I:%M:%S %p")
   except:
-    return datetime.strptime(string, "%m/%d/%y %I:%M:%S")
-  
+    return datetime.strptime(string, "%m/%d/%y %H:%M:%S")
+
 
 class MTImporter :
   def __init__(self, filename) :
@@ -54,7 +54,6 @@ class MTImporter :
       if key in attr :
         value = tmp[1].strip()
         if key == "AUTHOR" :
-          print value
           comment.author = value
         elif key == "EMAIL" :
           comment.email = value

@@ -9,6 +9,13 @@ from datetime import datetime
 
 from blogtrans.data import *
 
+def blogger_label(str) :
+  result = u""
+  for c in str:
+    if not c in ['!', '&', '<', '>', '@'] :
+      result += c
+  return result
+
 class BloggerExporter :
   def __init__(self, filename, blogdata) :
     self.filename = filename
@@ -69,7 +76,7 @@ class BloggerExporter :
           continue
         category = SubElement(entry, "category")
         category.attrib["scheme"]="http://www.blogger.com/atom/ns#"
-        category.attrib["term"]= v
+        category.attrib["term"]= blogger_label(v)
       
       title = SubElement(entry, "title")
       title.attrib["type"]="text"
@@ -100,7 +107,7 @@ class BloggerExporter :
     aid = 1
     cid = 1
     
-    for a in self.blogdata.articles :
+    for a in []:#.blogdata.articles :
       for c in a.comments :
         centry = SubElement(feed, "entry")
         SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
