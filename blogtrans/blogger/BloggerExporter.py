@@ -107,7 +107,7 @@ class BloggerExporter :
     aid = 1
     cid = 1
     
-    for a in []:#.blogdata.articles :
+    for a in self.blogdata.articles :
       for c in a.comments :
         centry = SubElement(feed, "entry")
         SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)

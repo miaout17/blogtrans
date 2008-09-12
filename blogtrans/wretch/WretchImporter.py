@@ -8,7 +8,16 @@ class WretchImporter :
     #f = codecs.open(self.filename, encoding="utf-8")
   
   def parse(self) :
-    tree = ET.parse(self.filename)
+  
+    f = open(self.filename)
+    xml_data = f.read()
+    f.close()
+    
+    end_pattern = "</blog_backup>"
+    end_index  = xml_data.rfind(end_pattern) + len(end_pattern)
+    xml_data = xml_data[0:end_index]
+    #tree = ET.parse(self.filename)
+    tree = ET.fromstring(xml_data)
     
     category_nodes = tree.findall("blog_articles_categories/category")
     article_nodes = tree.findall("*/article")
