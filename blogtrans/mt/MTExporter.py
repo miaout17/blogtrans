@@ -1,14 +1,5 @@
 import codecs
 
-try:
-  from xml.etree import ElementTree # for Python 2.5 users
-except:
-  from elementtree import ElementTree
-
-from gdata import service
-import gdata
-import atom
-import getopt
 import sys
 from datetime import datetime
 

@@ -34,7 +34,7 @@ class MainWindow(wx.Frame):
     wx.EVT_MENU(self, ID_IMPORT_MT, self.OnImportMT)
     
     export_menu = wx.Menu()
-    export_menu.Append(ID_EXPORT_BLOGGER, "Blogger(&B)...","匯出至Blogger XML")
+    export_menu.Append(ID_EXPORT_BLOGGER, "Blogger Atom XML(&B)...","匯出至Blogger Atom XML")
     wx.EVT_MENU(self, ID_EXPORT_BLOGGER, self.OnExportBlogger)
 
     export_menu.Append(ID_EXPORT_MT, "&MT檔案...","匯出至MT檔案")
@@ -84,7 +84,6 @@ class MainWindow(wx.Frame):
         data.articles.append(a)
         a.comments = []
 
-        print len(article.comments)
         for comment in article.comments :
           if comment in checked :
             a.comments.append(comment)

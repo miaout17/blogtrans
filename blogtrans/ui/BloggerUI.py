@@ -1,4 +1,6 @@
 # coding=big5
+
+# Deprecated after Rev15
 import wx._core as wx
 
 from blogtrans.blogger.blogger import *
