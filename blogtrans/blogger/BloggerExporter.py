@@ -69,9 +69,10 @@ def make_comment_task(feed, c, aid) :
   return lambda cid : write_comment(feed, c, aid, cid)
 
 class BloggerExporter :
-  def __init__(self, filename, blogdata) :
+  def __init__(self, filename, blogdata, combine_comment) :
     self.filename = filename
     self.blogdata = blogdata
+    self.combine_comment = combine_comment
   
   def Export(self) :
     comment_tasks = []
@@ -136,7 +137,11 @@ class BloggerExporter :
       
       content = SubElement(entry, "content")
       content.attrib["type"] = "html"
+      
       content.text = a.body + a.extended_body
+      if self.combine_comment :
+        for c in a.comments :
+            pass
       
       link = SubElement(entry, "link")
       link.attrib["rel"]="alternate"
@@ -154,10 +159,11 @@ class BloggerExporter :
       SubElement(author, "uri").text = "http://www.blogger.com/profile/1"
       SubElement(author, "email").text = "noreply@blogger.com"
       for c in a.comments :
-        task = make_comment_task(feed, c, aid)
-        comment_tasks.append(task)
+        if not self.combine_comment : 
+            task = make_comment_task(feed, c, aid)
+            comment_tasks.append(task)
     
-    print str(len(comment_tasks)) + " Comments"
+    print str(len(comment_tasks)) + " Comment tasks"
     for i, task in enumerate(comment_tasks):
       cid = i + 1
       task(cid)

@@ -7,14 +7,24 @@ import string
 
 from blogtrans.data import Article
 
+
 def make_html_list(list) :
   str = "<ul>"
   for item in list :
     str += "<li>" + item + "</li>"
   str += "</ul>"
-  str += "<hr />"
   return str
 
+def CommentToHTML(comment) :
+    info = []
+    
+    info.append(u"留言者: " + comment.author )
+    info.append(u"Email: " +comment.email )
+    info.append(u"網址: " + comment.url)
+    info.append(u"日期: " + comment.date.strftime("%Y-%m-%d %H:%M:%S") )
+    
+    return make_html_list(info)+comment.body
+  
 class BlogHtmlWindow(HtmlWindow):
   def __init__(self, parent) :
     HtmlWindow.__init__(self,parent,wx.ID_ANY, style = wx.SIMPLE_BORDER)
@@ -33,14 +43,7 @@ class BlogHtmlWindow(HtmlWindow):
     info.append(u"狀態: "+status)
     
     self.SetPage(make_html_list(info)+article.body+article.extended_body)
-    
+  
   def ShowComment(self, comment) :
-    info = []
-    
-    info.append(u"留言者: " + comment.author )
-    info.append(u"Email: " +comment.email )
-    info.append(u"網址: " + comment.url)
-    info.append(u"日期: " + comment.date.strftime("%Y-%m-%d %H:%M:%S") )
-    
-    self.SetPage(make_html_list(info)+comment.body)
+    self.SetPage( CommentToHTML(comment) )
     
