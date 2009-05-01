@@ -19,7 +19,8 @@ def blogger_label(str) :
 def write_comment(feed, c, aid, cid) :
   print aid
   centry = SubElement(feed, "entry")
-  SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
+  #SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
+  SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(cid+10000)
   time_str = c.date.strftime("%Y-%m-%dT%I:%M:%S.000+08:00") 
   SubElement(centry, "published").text = time_str 
   SubElement(centry, "updated").text = time_str
@@ -60,8 +61,9 @@ def write_comment(feed, c, aid, cid) :
 
   thr = SubElement(centry, "thr:in-reply-to")
   thr.attrib["href"]="http://www.blogger.com/feeds/1/posts/default/" + str(aid)
+  thr.attrib["source"]="http://www.blogger.com/feeds/1/posts/default/" + str(aid)
   thr.attrib["ref"]="tag:blogger.com,1999:blog-1.post-" + str(aid)
-  thr.attrib["type"] = "application/atom+xml"
+  thr.attrib["type"] = "text/html"
 
 def make_comment_task(feed, c, aid) :
   return lambda cid : write_comment(feed, c, aid, cid)
