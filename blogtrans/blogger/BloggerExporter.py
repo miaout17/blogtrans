@@ -8,6 +8,7 @@ except:
 from datetime import datetime
 
 from blogtrans.data import *
+from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
 
 def blogger_label(str) :
   result = u""
@@ -140,8 +141,9 @@ class BloggerExporter :
       
       content.text = a.body + a.extended_body
       if self.combine_comment :
-        for c in a.comments :
-            pass
+        if len(a.comments) :
+            comment_htmls = map(CommentToHTML, a.comments)
+            content.text += "<hr/>" + "<hr/>".join(comment_htmls)
       
       link = SubElement(entry, "link")
       link.attrib["rel"]="alternate"

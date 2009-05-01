@@ -185,7 +185,7 @@ class MainWindow(wx.Frame):
       file = dialog.GetFilename()
       dir = dialog.GetDirectory()
       filename = os.path.join(dir, file)
-    me = BloggerExporter(filename, checked_data)
+    me = BloggerExporter(filename, checked_data, True)
     me.Export()
     
   
