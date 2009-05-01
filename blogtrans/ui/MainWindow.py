@@ -14,11 +14,17 @@ from blogtrans.mt import *
 
 from blogtrans.blogger.BloggerExporter import *
 
+from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
+
+
 ID_IMPORT_WRETCH = wx.NewId()
 ID_IMPORT_MT = wx.NewId()
 
 ID_EXPORT_BLOGGER = wx.NewId()
 ID_EXPORT_MT = wx.NewId()
+
+ID_TOOL_COMBINE_COMMENT = wx.NewId()
+
 
 class MainWindow(wx.Frame):
 
@@ -39,11 +45,16 @@ class MainWindow(wx.Frame):
 
     export_menu.Append(ID_EXPORT_MT, "&MT檔案...","匯出至MT檔案")
     wx.EVT_MENU(self, ID_EXPORT_MT, self.OnExportMT)
+
+    tool_menu = wx.Menu()
+    tool_menu.Append(ID_TOOL_COMBINE_COMMENT, "結合留言至文章","結合留言至文章")
+    wx.EVT_MENU(self, ID_TOOL_COMBINE_COMMENT, self.OnCombineComment)
     
     menuBar = wx.MenuBar()
     menuBar.Append(import_menu,"匯入(&I)")
     menuBar.Append(export_menu,"匯出(&E)")
-     
+    menuBar.Append(tool_menu,"工具(&T)")
+    
     self.SetMenuBar(menuBar)
 
   def __init__(self) :
@@ -187,7 +198,13 @@ class MainWindow(wx.Frame):
       filename = os.path.join(dir, file)
     me = BloggerExporter(filename, checked_data, True)
     me.Export()
-    
+  
+  def OnCombineComment(self, e) :
+    for a in self.blogdata.articles :
+        if len(a.comments) :
+            comment_htmls = map(CommentToHTML, a.comments)
+            a.extended_body += "<hr/>" + "<br><br><br><br><hr/>".join(comment_htmls)
+    self.setBlogData(self.blogdata)
   
   def OnSelChanged(self, e) :
     # Tofix:  seems a sync problem here
