@@ -71,6 +71,8 @@ class MainWindow(wx.Frame):
     #self.sizer.Fit(self)
     self.Show(True)
     
+    self.setBlogData( self.genTestData() )
+    
   # TODO: Bad design here, takes O(n^2) time complexity....
   def GetCheckedBlogData(self) :
     checked = self.treectrl.GetAllCheckedData()
@@ -96,6 +98,37 @@ class MainWindow(wx.Frame):
   def setBlogData(self, blogdata) :
     self.blogdata = blogdata
     self.treectrl.setBlogData(blogdata)
+    
+  def genTestData(self) :
+    blogdata = BlogData()
+    
+    a = Article()
+    a.author = "TestAuthor"
+    a.title = "TestArticle"
+    a.date = datetime.today()
+    a.category = ["TestCategory"]
+    a.status = Article.PUBLISH
+    a.allow_comments = True
+    a.allow_pings = True
+    a.body = "TestArticleBody\n"
+    a.extended_body = "TestArticleExtendedBody"
+    a.excerpt = ""
+    a.comments = []
+    a.pings = []
+
+    for i in range(0,2) :
+        c = Comment()
+        c.author = "Comment user %i " % i
+        c.email = "user%i@gggggmail.com" % i
+        c.url = "http://www.url%d.com" % i
+        c.ip = "127.0.0.1"
+        c.date = datetime.today()
+        c.body = "Comment body %i" % i
+        a.comments.append(c)
+    
+    blogdata.articles.append(a)
+    
+    return blogdata
     
   def OnImportWretch(self, e) :
     dialog = wx.FileDialog(self)
