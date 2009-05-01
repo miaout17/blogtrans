@@ -1,6 +1,17 @@
 from blogtrans.data import *
 import xml.etree.ElementTree as ET
 from datetime import datetime
+from blogtrans.util.XMLStripper import strip_xml
+
+def my_rfind(str, pattern) :
+    pat_len = len(pattern) 
+    if pat_len > len(str) : return -1
+    
+    for start_pos in range( len(str)-pat_len, -1, -1) :
+        part = str[start_pos:start_pos+pat_len]
+        if part==pattern :
+            return start_pos
+    return -1
 
 class WretchImporter :
   def __init__(self, filename) :
@@ -9,12 +20,23 @@ class WretchImporter :
   
   def parse(self) :
   
-    f = open(self.filename)
+    f = open(self.filename, "rb")
     xml_data = f.read()
     f.close()
+    print len(xml_data)
+    xml_data = xml_data.decode("utf8", "replace")
+    xml_data = strip_xml(xml_data)
+    print len(xml_data)
+    xml_data = xml_data.encode("utf8")
+    print len(xml_data)
     
     end_pattern = "</blog_backup>"
-    end_index  = xml_data.rfind(end_pattern) + len(end_pattern)
+    #find_index = xml_data.rfind(end_pattern)
+    find_index = my_rfind(xml_data, end_pattern)
+    
+    end_index = find_index + len(end_pattern)
+    print find_index
+    
     xml_data = xml_data[0:end_index]
     #tree = ET.parse(self.filename)
     tree = ET.fromstring(xml_data)
