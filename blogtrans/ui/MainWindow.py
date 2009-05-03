@@ -1,4 +1,4 @@
-# coding=big5
+# coding=utf8
 
 import copy, os
 import wx._core as wx
@@ -33,32 +33,32 @@ class MainWindow(wx.Frame):
     #Todo: use a smarter way to manage menu...
     import_menu = wx.Menu()
     
-    import_menu.Append(ID_IMPORT_WRETCH, "µL¦WXMLÀÉ®×(&W)...","¶×¤JµL¦WXMLÀÉ®×")
+    import_menu.Append(ID_IMPORT_WRETCH, u"ç„¡åXMLæª”æ¡ˆ(&W)...",u"åŒ¯å…¥ç„¡åXMLæª”æ¡ˆ")
     wx.EVT_MENU(self, ID_IMPORT_WRETCH, self.OnImportWretch)
     
-    import_menu.Append(ID_IMPORT_MT, "&MTÀÉ®×...","¶×¤JMT ImportÀÉ®×")
+    import_menu.Append(ID_IMPORT_MT, u"&MTæª”æ¡ˆ...",u"åŒ¯å…¥MT Importæª”æ¡ˆ")
     wx.EVT_MENU(self, ID_IMPORT_MT, self.OnImportMT)
     
     export_menu = wx.Menu()
-    export_menu.Append(ID_EXPORT_BLOGGER, "Blogger Atom XML(&B)...","¶×¥X¦ÜBlogger Atom XML")
+    export_menu.Append(ID_EXPORT_BLOGGER, u"Blogger Atom XML(&B)...",u"åŒ¯å‡ºè‡³Blogger Atom XML")
     wx.EVT_MENU(self, ID_EXPORT_BLOGGER, self.OnExportBlogger)
 
-    export_menu.Append(ID_EXPORT_MT, "&MTÀÉ®×...","¶×¥X¦ÜMTÀÉ®×")
+    export_menu.Append(ID_EXPORT_MT, u"&MTæª”æ¡ˆ...",u"åŒ¯å‡ºè‡³MTæª”æ¡ˆ")
     wx.EVT_MENU(self, ID_EXPORT_MT, self.OnExportMT)
 
     tool_menu = wx.Menu()
-    tool_menu.Append(ID_TOOL_COMBINE_COMMENT, "µ²¦X¯d¨¥¦Ü¤å³¹","µ²¦X¯d¨¥¦Ü¤å³¹")
+    tool_menu.Append(ID_TOOL_COMBINE_COMMENT, u"çµåˆç•™è¨€è‡³æ–‡ç« ", u"çµåˆç•™è¨€è‡³æ–‡ç« ")
     wx.EVT_MENU(self, ID_TOOL_COMBINE_COMMENT, self.OnCombineComment)
     
     menuBar = wx.MenuBar()
-    menuBar.Append(import_menu,"¶×¤J(&I)")
-    menuBar.Append(export_menu,"¶×¥X(&E)")
-    menuBar.Append(tool_menu,"¤u¨ã(&T)")
+    menuBar.Append(import_menu,u"åŒ¯å…¥(&I)")
+    menuBar.Append(export_menu,u"åŒ¯å‡º(&E)")
+    menuBar.Append(tool_menu,u"å·¥å…·(&T)")
     
     self.SetMenuBar(menuBar)
 
   def __init__(self) :
-    wx.Frame.__init__(self, None, wx.ID_ANY, 'BlogTrans ³¡¸¨®æ·h®a¤u¨ã V0.1', size=(800,600))
+    wx.Frame.__init__(self, None, wx.ID_ANY, u'BlogTrans éƒ¨è½æ ¼æ¬å®¶å·¥å…·', size=(800,600))
     
     self.sizer = wx.BoxSizer(wx.HORIZONTAL)
     
@@ -102,8 +102,8 @@ class MainWindow(wx.Frame):
             a.comments.append(comment)
             comment_count += 1
         
-    print "Article: ", len(self.blogdata.articles), len(data.articles), len(checked)
-    print "Comment: ", comment_count
+    #print "Article: ", len(self.blogdata.articles), len(data.articles), len(checked)
+    #print "Comment: ", comment_count
     return data
     
   def setBlogData(self, blogdata) :
