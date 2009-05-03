@@ -82,7 +82,7 @@ class MainWindow(wx.Frame):
     #self.sizer.Fit(self)
     self.Show(True)
     
-    self.setBlogData( self.genTestData() )
+    #self.setBlogData( self.genTestData() )
     
   # TODO: Bad design here, takes O(n^2) time complexity....
   def GetCheckedBlogData(self) :
@@ -196,7 +196,7 @@ class MainWindow(wx.Frame):
       file = dialog.GetFilename()
       dir = dialog.GetDirectory()
       filename = os.path.join(dir, file)
-    me = BloggerExporter(filename, checked_data, True)
+    me = BloggerExporter(filename, checked_data)
     me.Export()
   
   def OnCombineComment(self, e) :
@@ -204,6 +204,7 @@ class MainWindow(wx.Frame):
         if len(a.comments) :
             comment_htmls = map(CommentToHTML, a.comments)
             a.extended_body += "<hr/>" + "<br><br><br><br><hr/>".join(comment_htmls)
+        a.comments = []
     self.setBlogData(self.blogdata)
   
   def OnSelChanged(self, e) :

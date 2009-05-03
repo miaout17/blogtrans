@@ -8,7 +8,7 @@ except:
 from datetime import datetime
 
 from blogtrans.data import *
-from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
+#from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
 
 def blogger_label(str) :
   result = u""
@@ -70,11 +70,10 @@ def make_comment_task(feed, c, aid) :
   return lambda cid : write_comment(feed, c, aid, cid)
 
 class BloggerExporter :
-  def __init__(self, filename, blogdata, combine_comment) :
+  def __init__(self, filename, blogdata) :
     self.filename = filename
     self.blogdata = blogdata
-    self.combine_comment = combine_comment
-  
+ 
   def Export(self) :
     comment_tasks = []
   
@@ -140,10 +139,6 @@ class BloggerExporter :
       content.attrib["type"] = "html"
       
       content.text = a.body + a.extended_body
-      if self.combine_comment :
-        if len(a.comments) :
-            comment_htmls = map(CommentToHTML, a.comments)
-            content.text += "<hr/>" + "<hr/>".join(comment_htmls)
       
       link = SubElement(entry, "link")
       link.attrib["rel"]="alternate"
@@ -161,9 +156,8 @@ class BloggerExporter :
       SubElement(author, "uri").text = "http://www.blogger.com/profile/1"
       SubElement(author, "email").text = "noreply@blogger.com"
       for c in a.comments :
-        if not self.combine_comment : 
-            task = make_comment_task(feed, c, aid)
-            comment_tasks.append(task)
+        task = make_comment_task(feed, c, aid)
+        comment_tasks.append(task)
     
     print str(len(comment_tasks)) + " Comment tasks"
     for i, task in enumerate(comment_tasks):
