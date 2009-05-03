@@ -1,20 +1,27 @@
+# coding=utf8
 import codecs
 
 import re
 from datetime import datetime
 
 from blogtrans.data import *
+import string
 
-def parse_date(string) :
-  if re.compile("\d\d/\d\d/\d\d\d\d").match(string) :
+def parse_date(date_str) :
+  
+  #process informal situation
+  date_str = string.replace(date_str, u"上午", u"AM")
+  date_str = string.replace(date_str, u"下午", u"PM")
+  
+  if re.compile("\d\d/\d\d/\d\d\d\d").match(date_str) :
     try:
-      return datetime.strptime(string, "%m/%d/%Y %I:%M:%S %p")
+      return datetime.strptime(date_str, "%m/%d/%Y %I:%M:%S %p")
     except:
-      return datetime.strptime(string, "%m/%d/%Y %H:%M:%S")
+      return datetime.strptime(date_str, "%m/%d/%Y %H:%M:%S")
   try:
-    return datetime.strptime(string, "%m/%d/%y %I:%M:%S %p")
+    return datetime.strptime(date_str, "%m/%d/%y %I:%M:%S %p")
   except:
-    return datetime.strptime(string, "%m/%d/%y %H:%M:%S")
+    return datetime.strptime(date_str, "%m/%d/%y %H:%M:%S")
 
 
 class MTImporter :
