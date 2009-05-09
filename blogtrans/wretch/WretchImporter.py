@@ -96,8 +96,11 @@ class WretchImporter :
       comment.body = aid = node.findtext("text")
       
       aid = node.findtext("article_id")
-      article = aid_map[aid]
-      article.comments.append(comment)
+      try : 
+        article = aid_map[aid]
+        article.comments.append(comment)
+      except KeyError :
+        print "Comment %s missing article %s" % (cid, aid)
     
     #TODO: process category
     return blogdata
