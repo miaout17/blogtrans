@@ -65,7 +65,7 @@ class WretchImporter :
 
       article.author = node.findtext("userid")
       article.title = node.findtext("title")
-      article.date = datetime.strptime(node.findtext("PostTime"), "%Y-%m-%d %H:%M:%S")
+      article.date = datetime.strptime(node.findtext("date"), "%Y-%m-%d %H:%M:%S")
       
       #In wretch, every article has  only 1 category
       cid = node.findtext("category_id")
