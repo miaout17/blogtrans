@@ -23,19 +23,19 @@ class WretchImporter :
         f = open(self.filename, "rb")
         xml_data = f.read()
         f.close()
-        print len(xml_data)
+        #print len(xml_data)
         xml_data = xml_data.decode("utf8", "replace")
         xml_data = strip_xml(xml_data)
-        print len(xml_data)
+        #print len(xml_data)
         xml_data = xml_data.encode("utf8")
-        print len(xml_data)
+        #print len(xml_data)
         
         end_pattern = "</blog_backup>"
         #find_index = xml_data.rfind(end_pattern)
         find_index = my_rfind(xml_data, end_pattern)
         
         end_index = find_index + len(end_pattern)
-        print find_index
+        #print find_index
         
         xml_data = xml_data[0:end_index]
         #tree = ET.parse(self.filename)
