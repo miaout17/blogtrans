@@ -23,7 +23,7 @@ def trap_error(func) :
 
 @trap_error
 def main() : 
-    long_opts = [ "import-wretch" ]
+    long_opts = [ "import-wretch=" ]
     opts, args = getopt.getopt(sys.argv[1:], "n", long_opts)
    
     no_window = False
@@ -31,6 +31,9 @@ def main() :
     for o, a in opts :
         if o=="-n" :
             no_window = True
+        if o=="--import-wretch" :
+            blogdata = WretchImporter(a).parse()
+            print blogdata.GetArticleCount()
 
     if not no_window :
         app = wx.PySimpleApp()
