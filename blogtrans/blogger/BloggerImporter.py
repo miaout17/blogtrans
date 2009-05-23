@@ -21,7 +21,8 @@ class BloggerImporter :
         tree = ET.fromstring(xml_data)
             
         for entry in tree.findall("{http://www.w3.org/2005/Atom}entry") :
-            print entry.tag
+            pass
+            #print entry.tag
             
         """
         self.author = ""
