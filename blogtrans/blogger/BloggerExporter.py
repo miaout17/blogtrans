@@ -18,7 +18,7 @@ def blogger_label(str) :
     return result
     
 def write_comment(feed, c, aid, cid) :
-    print aid
+    #print aid
     centry = SubElement(feed, "entry")
     #SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
     SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(cid+10000)
@@ -159,7 +159,7 @@ class BloggerExporter :
                 task = make_comment_task(feed, c, aid)
                 comment_tasks.append(task)
         
-        print str(len(comment_tasks)) + " Comment tasks"
+        #print str(len(comment_tasks)) + " Comment tasks"
         for i, task in enumerate(comment_tasks):
             cid = i + 1
             task(cid)
