@@ -4,6 +4,9 @@ import os
 import random
 
 from blogtrans.test import *
+
+import psyco
+psyco.full()
     
 def main() :
     suite = unittest.TestSuite()
