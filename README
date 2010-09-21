@@ -1,4 +1,4 @@
-Blogtrans is aimed to convert data between different format, Currently support MT, wretch.tw(Import only), blogger(export only). 
+Blogtrans is an open-source software which can convert different kinds of blog data formats including Wretch XML(import only), Blogger Atom, and MovableType.
 
 For newest build, visit project download page at sourceforge. 
 https://sourceforge.net/project/showfiles.php?group_id=211548
