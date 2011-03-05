@@ -5,9 +5,13 @@ import random
 
 from blogtrans.test import *
 
-import psyco
-psyco.full()
-    
+try:
+    import psyco
+    psyco.full()
+    print "Using psyco"
+except ImportError:
+    print "Failed to load psyco"
+   
 def main() :
     suite = unittest.TestSuite()
 
