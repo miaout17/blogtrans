@@ -24,6 +24,8 @@ class _ImportTask(object) :
         file_fullname = _get_file_fullname(self.format, self.filename)
         importer = self.importer_class (file_fullname)
         self.blogdata = importer.parse()
+        assert self.blogdata.article_count() > 0
+        assert self.blogdata.comment_count() > 0
         
     def do_export_blogger(self) :
         exporter = BloggerExporter("testfile", self.blogdata)
