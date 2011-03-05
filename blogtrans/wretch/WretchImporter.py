@@ -48,7 +48,11 @@ class WretchImporter :
         
         category_nodes = tree.findall("blog_articles_categories/category")
         article_nodes = tree.findall("*/article")
-        comment_nodes = tree.findall("blog_articles_comments/article_comment")
+
+        # Wretch uses blog_articles_comments_%d%d instead of blog_articles_comments now
+        # where %d%d is 2-digit number. This correctly find all comments
+
+        comment_nodes = tree.findall("*/article_comment")
         #print "Count: ", len(article_nodes), len(comment_nodes)
 
         # mapping from article_id to Article object
