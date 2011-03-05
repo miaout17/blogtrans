@@ -17,25 +17,30 @@ class WretchImporter :
     def __init__(self, filename) :
         self.filename = filename
         #f = codecs.open(self.filename, encoding="utf-8")
-    
+        
     def parse(self) :
+        try :
+            return self.__parse(False)
+        except :
+            return self.__parse(True) 
+    
+    def __parse(self, preprocess) :
     
         f = open(self.filename, "rb")
         xml_data = f.read()
         f.close()
-        print len(xml_data)
-        xml_data = xml_data.decode("utf8", "replace")
-        xml_data = strip_xml(xml_data)
-        print len(xml_data)
-        xml_data = xml_data.encode("utf8")
-        print len(xml_data)
+        
+        if preprocess :
+            xml_data = xml_data.decode("utf8", "replace")
+            xml_data = strip_xml(xml_data)
+            xml_data = xml_data.encode("utf8")
         
         end_pattern = "</blog_backup>"
         #find_index = xml_data.rfind(end_pattern)
         find_index = my_rfind(xml_data, end_pattern)
         
         end_index = find_index + len(end_pattern)
-        print find_index
+        #print find_index
         
         xml_data = xml_data[0:end_index]
         #tree = ET.parse(self.filename)

@@ -1,6 +1,15 @@
 from blogtrans.ui.MainWindow import *
 import sys, traceback
+import getopt
 import wx
+
+# Importers / Exporters
+from blogtrans.wretch.WretchImporter import WretchImporter
+from blogtrans.mt import *
+
+from blogtrans.blogger.BloggerExporter import *
+from blogtrans.blogger.BloggerImporter import *
+
 
 def trap_error(func) :
     def f() :
@@ -14,8 +23,25 @@ def trap_error(func) :
 
 @trap_error
 def main() : 
-    app = wx.PySimpleApp()
-    frame=MainWindow()
-    app.MainLoop()
+    long_opts = [ "import-wretch=", "import-blogger=" ]
+    opts, args = getopt.getopt(sys.argv[1:], "n", long_opts)
+   
+    no_window = False
+    
+    for o, a in opts :
+        if o=="-n" :
+            no_window = True
+        if o=="--import-wretch" :
+            blogdata = WretchImporter(a).parse()
+            print "%d articles, %d comments" % ( blogdata.article_count(), blogdata.comment_count() )
+        if o=="--import-blogger" :
+            blogdata = BloggerImporter(a).parse()
+            print "%d articles, %d comments" % ( blogdata.article_count(), blogdata.comment_count() )
 
-main()
+    if not no_window :
+        app = wx.PySimpleApp()
+        frame=MainWindow()
+        app.MainLoop()
+
+if __name__ == "__main__" :
+    main()
