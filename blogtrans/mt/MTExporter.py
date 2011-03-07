@@ -9,7 +9,7 @@ class MTExporter :
     def __init__(self, filename, blogdata) :
         self.filename = filename
         self.blogdata = blogdata
-    
+
     def Export(self) :
         #f = open(self.filename,"w")
         f = codecs.open(self.filename, "w", encoding="utf-8")

@@ -8,4 +8,4 @@ class Comment :
         self.ip = ""
         self.date = datetime.today()
         self.body = ""
-        
+

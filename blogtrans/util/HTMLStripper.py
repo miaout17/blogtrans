@@ -12,12 +12,12 @@ class StripParser(HTMLParser):
 
     def handle_endtag(self, tag):
         print "Encountered the end of a %s tag" % tag
-        
+
     def handle_startendtag(self, tag, attrs) :
         print "Encountered a empty tag %s " % tag
-        
+
     def handle_data(self, data) :
-        self.output += data 
+        self.output += data
 
     def handle_charref(self, name) :
         self.output += "&#%s;" % name
@@ -35,5 +35,5 @@ def StripHTML(data) :
     parser.feed(data)
     parser.close()
     return parser.output
-    
+
 #print StripHTML(urllib.urlopen("http://www.google.com").read())

@@ -4,7 +4,7 @@ class Article :
     PUBLISH = 0
     DRAFT = 1
     PRIVATE = 2
-    
+
     def __init__(self) :
         self.author = ""
         self.title = ""
@@ -21,4 +21,4 @@ class Article :
 
         self.comments = []
         self.pings = []
-        
+

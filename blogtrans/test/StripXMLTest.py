@@ -22,10 +22,10 @@ class StripXMLTest(unittest.TestCase):
         STR_LEN = 2000
         #slow here....refactoring?
         str = u""
-        
+
         valid = 0
         invalid = 0
-        
+
         for i in xrange(0, STR_LEN) :
             val = random.randint(1, 0x9999)
             c = unichr(val)
@@ -38,8 +38,8 @@ class StripXMLTest(unittest.TestCase):
         return str
 
     def test_strip(self) :
-        
+
         for i in xrange(0, 20) :
             str = self._gen_string()
             self.assertEqual( strip_xml(str), old_strip_xml(str) )
-            
+

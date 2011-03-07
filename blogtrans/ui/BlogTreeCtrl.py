@@ -10,7 +10,7 @@ class BlogTreeCtrl(CustomTreeCtrl) :
 
     def GetAllCheckedData(self) :
         checked = []
-    
+
         item = self.GetRootItem()
         item = self.GetNext(item)
         while item :
@@ -18,9 +18,9 @@ class BlogTreeCtrl(CustomTreeCtrl) :
             if self.IsItemChecked(item):
                 checked.append(item.GetData())
             item = self.GetNext(item)
-            
+
         return set(checked)
-        
+
     def setBlogData(self, blogdata) :
         self.DeleteAllItems()
         root = self.AddRoot('Blog')
@@ -28,13 +28,13 @@ class BlogTreeCtrl(CustomTreeCtrl) :
         for article in blogdata.articles :
             article_item = self.AppendItem(root, article.title, ct_type=1, data=article)
             self.CheckItem(article_item)
-            
-            if len(article.comments)!=0 : self.SetItemHasChildren(article_item, True)            
-            
+
+            if len(article.comments)!=0 : self.SetItemHasChildren(article_item, True)
+
             for comment in article.comments :
                 #print comment.author
                 comment_item = self.AppendItem(article_item, comment.author+u" ªº¦^À³", ct_type=1, data=comment)
                 self.CheckItem(comment_item)
         self.Expand(root)
-        
-        
+
+

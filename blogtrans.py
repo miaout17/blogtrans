@@ -22,12 +22,12 @@ def trap_error(func) :
     return f
 
 @trap_error
-def main() : 
+def main() :
     long_opts = [ "import-wretch=", "import-blogger=" ]
     opts, args = getopt.getopt(sys.argv[1:], "n", long_opts)
-   
+
     no_window = False
-    
+
     for o, a in opts :
         if o=="-n" :
             no_window = True

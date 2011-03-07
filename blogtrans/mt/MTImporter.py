@@ -8,11 +8,11 @@ from blogtrans.data import *
 import string
 
 def parse_date(date_str) :
-    
+
     #process informal situation
     date_str = string.replace(date_str, u"上午", u"AM")
     date_str = string.replace(date_str, u"下午", u"PM")
-    
+
     if re.compile("\d\d/\d\d/\d\d\d\d").match(date_str) :
         try:
             return datetime.strptime(date_str, "%m/%d/%Y %I:%M:%S %p")
@@ -64,14 +64,14 @@ class MTImporter :
                 break
 
         comment.body = "".join(text[i:])
-        
+
         return comment
 
     def parse_entry(self, text) :
         #entry = {}
         #entry["COMMENT"] = []
         article = Article()
-        
+
         single_line = set(["AUTHOR", "TITLE", "DATE", "PRIMARY CATEGORY", "CATEGORY", "STATUS",
                                              "ALLOW COMMENTS", "ALLOW PINGS", "CONVERT BREAKS", "NO ENTRY"])
         multi_line = set(["BODY", "EXTENDED BODY", "EXCERPT", "COMMENT", "PING"])
@@ -116,7 +116,7 @@ class MTImporter :
             #print v
         #self.entries.append(entry)
         self.blogdata.articles.append(article)
-        
+
     def parse(self) :
         f = codecs.open(self.filename, encoding="utf-8")
         lines = f.readlines()

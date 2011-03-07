@@ -15,10 +15,10 @@ def _is_valid_char(c) :
 
 def strip_xml(source) :
     sio = StringIO(u"")
-    
+
     last_proceed = -1
     current = 0
-    
+
     while current < len(source) :
         c = source[current]
         if not _is_valid_char(c) :
@@ -44,7 +44,7 @@ def old_strip_xml(source) :
             valid = True
         elif val >= 0x10000 and val <= 0x10FFFF :
             valid = True
-            
+
         if valid :
             sio.write(c)
 
