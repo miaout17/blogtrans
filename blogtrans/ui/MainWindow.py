@@ -2,6 +2,7 @@
 
 import copy, os
 import wx._core as wx
+import blogtrans
 from wx.html import HtmlWindow
 
 from BlogTreeCtrl import BlogTreeCtrl
@@ -63,7 +64,7 @@ class MainWindow(wx.Frame):
         self.SetMenuBar(menuBar)
 
     def __init__(self) :
-        wx.Frame.__init__(self, None, wx.ID_ANY, u'BlogTrans 部落格搬家工具', size=(800,600))
+        wx.Frame.__init__(self, None, wx.ID_ANY, u'BlogTrans 部落格搬家工具 ' + blogtrans.VERSION, size=(800,600))
         
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         
