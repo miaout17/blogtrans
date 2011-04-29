@@ -6,10 +6,10 @@ import blogtrans
 setup(
     data_files = ["README", "LICENSE"],
     console=["blogtrans.py"],
-    options = { 
+    options = {
         "py2exe": {
             "includes" : ["_strptime"],
             "dist_dir": "dist/blogtrans-" + blogtrans.VERSION
-         }, 
+         },
     }
 )
