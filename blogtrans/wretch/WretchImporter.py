@@ -24,6 +24,10 @@ class WretchImporter :
         except :
             return self.__parse(True)
 
+    @staticmethod
+    def parse_date(date_str) :
+        return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+
     def __parse(self, preprocess) :
 
         f = open(self.filename, "rb")
@@ -74,7 +78,7 @@ class WretchImporter :
 
             article.author = node.findtext("userid")
             article.title = node.findtext("title")
-            article.date = datetime.strptime(node.findtext("date"), "%Y-%m-%d %H:%M:%S")
+            article.date = self.parse_date(node.findtext("date"))
 
             #In wretch, every article has    only 1 category
             cid = node.findtext("category_id")
