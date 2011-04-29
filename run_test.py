@@ -15,8 +15,12 @@ except ImportError:
 def main() :
     suite = unittest.TestSuite()
 
-    suite.addTest( StripXMLTest.StripXMLTest("test_strip") )
+    def load_case(klass) :
+        suite.addTests( unittest.TestLoader().loadTestsFromTestCase(klass) )
+
     suite.addTests( ImportExportTest.make_testcases() )
+    load_case(StripXMLTest.StripXMLTest)
+    load_case(WretchImporterTest.WretchImporterTest)
 
     unittest.TextTestRunner(verbosity=2).run(suite)
 
