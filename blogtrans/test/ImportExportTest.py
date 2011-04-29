@@ -52,7 +52,7 @@ def _make_filelist(format) :
     return filenames
 
 def _make_testcase_by_format(format) :
-    filenames = _make_filelist("Wretch")
+    filenames = _make_filelist(format)
 
     testcases = []
 
@@ -72,3 +72,4 @@ def _make_testcase_by_format(format) :
 
 def make_testcases() :
     return _make_testcase_by_format("Wretch")
+    # return _make_testcase_by_format("Blogger")

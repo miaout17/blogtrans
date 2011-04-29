@@ -39,8 +39,8 @@ class MainWindow(wx.Frame):
         import_menu.Append(ID_IMPORT_WRETCH, u"無名XML檔案(&W)...",u"匯入無名XML檔案")
         wx.EVT_MENU(self, ID_IMPORT_WRETCH, self.OnImportWretch)
 
-        import_menu.Append(ID_IMPORT_BLOGGER, u"Blogger Atom XML(&B)...",u"匯入Blogger Atom XML")
-        wx.EVT_MENU(self, ID_IMPORT_BLOGGER, self.OnImportBlogger)
+        # import_menu.Append(ID_IMPORT_BLOGGER, u"Blogger Atom XML(&B)...",u"匯入Blogger Atom XML")
+        # wx.EVT_MENU(self, ID_IMPORT_BLOGGER, self.OnImportBlogger)
 
         import_menu.Append(ID_IMPORT_MT, u"&MT檔案...",u"匯入MT Import檔案")
         wx.EVT_MENU(self, ID_IMPORT_MT, self.OnImportMT)
