@@ -6,9 +6,7 @@ except:
     from elementtree.ElementTree import *
 
 from datetime import datetime
-
 from blogtrans.data import *
-#from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
 
 def blogger_label(str) :
     result = u""
@@ -18,9 +16,7 @@ def blogger_label(str) :
     return result
 
 def write_comment(feed, c, aid, cid) :
-    #print aid
     centry = SubElement(feed, "entry")
-    #SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(aid) + ".comment-" + str(cid)
     SubElement(centry, "id").text = "tag:blogger.com,1999:blog-1.post-" + str(cid+10000)
     time_str = c.date.strftime("%Y-%m-%dT%H:%M:%S.000+08:00")
     SubElement(centry, "published").text = time_str
@@ -159,7 +155,6 @@ class BloggerExporter :
                 task = make_comment_task(feed, c, aid)
                 comment_tasks.append(task)
 
-        #print str(len(comment_tasks)) + " Comment tasks"
         for i, task in enumerate(comment_tasks):
             cid = i + 1
             task(cid)

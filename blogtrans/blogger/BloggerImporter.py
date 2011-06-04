@@ -1,10 +1,9 @@
 import codecs
-
 import xml.etree.ElementTree as ET
-
 from datetime import datetime
-
 from blogtrans.data import *
+
+# Blogger Import is not implemented yet
 
 class BloggerImporter :
     def __init__(self, filename) :
