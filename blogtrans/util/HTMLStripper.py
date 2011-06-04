@@ -36,4 +36,3 @@ def StripHTML(data) :
     parser.close()
     return parser.output
 
-#print StripHTML(urllib.urlopen("http://www.google.com").read())

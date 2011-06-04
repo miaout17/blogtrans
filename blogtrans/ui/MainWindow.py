@@ -71,7 +71,6 @@ class MainWindow(wx.Frame):
         self.treectrl = BlogTreeCtrl(self)
         self.Bind(wx.EVT_TREE_SEL_CHANGED, self.OnSelChanged, self.treectrl)
 
-        #self.textctrl = wx.TextCtrl(self, wx.ID_ANY, style=wx.TE_MULTILINE)
         self.html = BlogHtmlWindow(self)
 
         self.sizer.Add(self.treectrl,1,wx.EXPAND)
@@ -83,11 +82,7 @@ class MainWindow(wx.Frame):
         self.__init_menubar()
         self.CreateStatusBar()
 
-        #self.OnImportWretch(None)
-
-        #self.sizer.Fit(self)
         self.Show(True)
-
         #self.setBlogData( self.genTestData() )
 
     # TODO: Bad design here, takes O(n^2) time complexity....
@@ -146,7 +141,6 @@ class MainWindow(wx.Frame):
         return blogdata
 
     #Todo: lots of dumb code in callbacks, need refactoring
-
     def OnImportWretch(self, e) :
         dialog = wx.FileDialog(self)
         result = dialog.ShowModal()

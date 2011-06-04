@@ -1,6 +1,5 @@
 from StringIO import StringIO
 
-
 def _is_valid_char(c) :
     val = ord(c)
     if val == 0x9 or val == 0xA or val == 0xD :

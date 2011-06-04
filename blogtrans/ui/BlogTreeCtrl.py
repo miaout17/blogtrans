@@ -5,8 +5,7 @@ from wx.lib.customtreectrl import *
 
 class BlogTreeCtrl(CustomTreeCtrl) :
     def __init__(self, parent):
-        #TR_MULTIPLE
-        super(BlogTreeCtrl, self).__init__(parent, style=TR_HAS_BUTTONS|TR_TWIST_BUTTONS|TR_AUTO_CHECK_CHILD    )
+        super(BlogTreeCtrl, self).__init__(parent, style=TR_HAS_BUTTONS|TR_TWIST_BUTTONS|TR_AUTO_CHECK_CHILD)
 
     def GetAllCheckedData(self) :
         checked = []
@@ -32,7 +31,6 @@ class BlogTreeCtrl(CustomTreeCtrl) :
             if len(article.comments)!=0 : self.SetItemHasChildren(article_item, True)
 
             for comment in article.comments :
-                #print comment.author
                 comment_item = self.AppendItem(article_item, comment.author+u" ªº¦^À³", ct_type=1, data=comment)
                 self.CheckItem(comment_item)
         self.Expand(root)

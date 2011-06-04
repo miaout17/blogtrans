@@ -1,4 +1,5 @@
 # coding=big5
+# DEPRECATED...REMOVE ME
 
 import wx._core as wx
 from threading import *

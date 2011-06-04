@@ -16,7 +16,6 @@ def my_rfind(str, pattern) :
 class WretchImporter :
     def __init__(self, filename) :
         self.filename = filename
-        #f = codecs.open(self.filename, encoding="utf-8")
 
     def parse(self) :
         try :
@@ -40,14 +39,11 @@ class WretchImporter :
             xml_data = xml_data.encode("utf8")
 
         end_pattern = "</blog_backup>"
-        #find_index = xml_data.rfind(end_pattern)
         find_index = my_rfind(xml_data, end_pattern)
 
         end_index = find_index + len(end_pattern)
-        #print find_index
 
         xml_data = xml_data[0:end_index]
-        #tree = ET.parse(self.filename)
         tree = ET.fromstring(xml_data)
 
         category_nodes = tree.findall("blog_articles_categories/category")
@@ -57,17 +53,13 @@ class WretchImporter :
         # where %d%d is 2-digit number. This correctly find all comments
 
         comment_nodes = tree.findall("*/article_comment")
-        #print "Count: ", len(article_nodes), len(comment_nodes)
 
-        # mapping from article_id to Article object
         aid_map = {}
         cid_name = {}
 
         blogdata = BlogData()
 
         #Todo: error handling
-
-
         for node in category_nodes :
             cid = node.findtext("id")
             cname = node.findtext("name")
@@ -80,7 +72,7 @@ class WretchImporter :
             article.title = node.findtext("title")
             article.date = self.parse_date(node.findtext("date"))
 
-            #In wretch, every article has    only 1 category
+            #In wretch, every article has only 1 category
             cid = node.findtext("category_id")
             if cid in cid_name :
                 article.category.append(cid_name[cid])
@@ -117,3 +109,4 @@ class WretchImporter :
 
         #TODO: process category
         return blogdata
+
