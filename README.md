@@ -18,14 +18,14 @@ Visit [project download page](https://sourceforge.net/project/showfiles.php?grou
 
 ### Linux and Mac
 
-However, Linux and Mac user can get the source code and build by yourself.
-Please refer to **development** section.
+Linux and Mac user can get the source code and build by yourself.
+Please refer to **Build from Source** section.
 
 ## Usage
 
 Please refer to the [Blogtrans Homepage](http://miaout17.github.com/blogtrans/) (Traditional Chinese).
 
-## Development
+## Build from Source
 
 The code is mainly hosted on [Github](https://github.com/miaout17/blogtrans)
 (There is also a mirror on Sourceforge, but it's not always up-to-date).
@@ -38,9 +38,19 @@ or directly download the [tarball](https://github.com/miaout17/blogtrans/tarball
 
 ### Dependencies
 
+Please install following items:
+
 * [Python](http://www.python.org/) 2.6 or above (but not 3.x)
 * [wxPython](http://www.wxpython.org/) 2.8 or above
 * [psyco](http://psyco.sourceforge.net/) (optional)
+
+After that, you can execute BlogTrans:
+
+    python blogtrans.py
+
+### Testing
+
+Document TBD..
 
 ## Liecnse
 
