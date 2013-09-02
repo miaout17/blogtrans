@@ -8,18 +8,20 @@ Blogtrans是一套轉換blog資料格式的開放源碼軟體，目前支援：
 
 ## 注意：已知問題
 
-* 無名XML檔會有日期、格式不正確（如2月31日、XML損壞）
-* Blogger標籤特殊字元會造成匯出不完全
+* 無名XML檔會有日期、格式不正確的問題（如2月31日、XML損壞）
+* 無法匯入所有文章至Blogger：可能是由於文章類別有特殊符號。可試著「清除所有文章類別」
 
-細節及其他已知問題詳見[FAQ](http://miaout17.github.io/blogtrans/faq.html)
+細節及其他已知問題詳見[FAQ](http://miaout17.github.io/blogtrans/faq.html)，如無法解決歡迎[回報問題](http://miaout17.github.io/blogtrans/report.html)。
 
 ## 更新記錄
 
 Blogtrans 1.1.0 (2013/09/13)
 
 * 自動修正無名XML檔日期錯誤的問題（如自動將2/31修正為2/28）
+* 新增「工具：清除所有文章類別」功能（無法匯入所有文章至Blogger時可嘗試使用）
+* 修正留言附加於錯誤文章的bug
 
-## 執行Blogtrans
+## Running Blogtrans
 
 ### Windows
 

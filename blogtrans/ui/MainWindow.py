@@ -42,8 +42,8 @@ class ReadmeWindow(wx.Frame):
         # HtmlWindow.__init__(self, parent,wx.ID_ANY, style = wx.SIMPLE_BORDER)
         wx.Frame.__init__(self, parent, title=u"關於Blogtrans", size=(700,500))
         self.control = MyHtmlWindow(self, style=wx.TE_MULTILINE|wx.TE_READONLY)
-        from blogtrans.readme import text
-        self.control.SetPage(text)
+        from blogtrans.readme import html
+        self.control.SetPage(html)
 
 class MainWindow(wx.Frame):
 
