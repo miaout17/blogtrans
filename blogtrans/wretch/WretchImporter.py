@@ -17,6 +17,16 @@ def my_rfind(str, pattern) :
             return start_pos
     return -1
 
+def log(message) :
+    print message
+
+def parse_date(date_str) :
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+    except Exception as e:
+        log("解析日期失敗：{}".format(date_str))
+        raise e
+
 class WretchImporter :
     def __init__(self, filename) :
         self.filename = filename
@@ -25,20 +35,12 @@ class WretchImporter :
         try :
             return self.__parse(False)
         except :
-            self.log("嘗試清理XML格式再重新解析...")
+            log("嘗試清理XML格式再重新解析...")
             return self.__parse(True)
 
     @classmethod
-    def log(self, message) :
-        print message
-
-    @classmethod
     def parse_date(self, date_str) :
-        try:
-            return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
-        except Exception as e:
-            self.log("解析日期失敗：{}".format(date_str))
-            raise e
+        return parse_date(date_str)
 
     def __parse(self, preprocess) :
 
