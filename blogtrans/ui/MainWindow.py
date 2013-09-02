@@ -17,7 +17,7 @@ from blogtrans.blogger.BloggerExporter import *
 from blogtrans.blogger.BloggerImporter import *
 
 from blogtrans.ui.BlogHtmlCtrl import CommentToHTML
-
+import webbrowser
 
 ID_IMPORT_WRETCH = wx.NewId()
 ID_IMPORT_BLOGGER = wx.NewId()
@@ -29,6 +29,21 @@ ID_EXPORT_MT = wx.NewId()
 ID_TOOL_COMBINE_COMMENT = wx.NewId()
 ID_TOOL_CLEAR_CATEGORY = wx.NewId()
 
+class MyHtmlWindow(HtmlWindow):
+    def OnLinkClicked(self, link):
+        url = link.GetHref()
+        if url.startswith('#'):
+            self.base_OnLinkClicked(link)
+        else:
+            webbrowser.open(url)
+
+class ReadmeWindow(wx.Frame):
+    def __init__(self, parent):
+        # HtmlWindow.__init__(self, parent,wx.ID_ANY, style = wx.SIMPLE_BORDER)
+        wx.Frame.__init__(self, parent, title=u"關於Blogtrans", size=(700,500))
+        self.control = MyHtmlWindow(self, style=wx.TE_MULTILINE|wx.TE_READONLY)
+        from blogtrans.readme import text
+        self.control.SetPage(text)
 
 class MainWindow(wx.Frame):
 
@@ -87,6 +102,10 @@ class MainWindow(wx.Frame):
         self.CreateStatusBar()
 
         self.Show(True)
+
+        self.about_window = ReadmeWindow(self)
+        self.about_window.Show(True)
+
         #self.setBlogData( self.genTestData() )
 
     # TODO: Bad design here, takes O(n^2) time complexity....
@@ -218,7 +237,6 @@ class MainWindow(wx.Frame):
         mi = BloggerImporter(filename)
         blogdata = mi.parse()
         self.setBlogData(blogdata)
-
 
     def OnCombineComment(self, e) :
         for a in self.blogdata.articles :

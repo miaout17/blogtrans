@@ -1,14 +1,25 @@
 # Blogtrans
 
-Blogtrans is an open-source software aims convert different popular blog data formats.
+Blogtrans是一套轉換blog資料格式的開放源碼軟體，目前支援：
 
-Supported format includes:
+* [MovableType](http://www.movabletype.org/documentation/appendices/import-export-format.html) 匯入及匯出
+* [無名小站XML](http://www.wretch.cc/blog/) 匯入
+* [Blogger Atom](http://www.blogger.com) 匯出
 
-* [MovableType Format](http://www.movabletype.org/documentation/appendices/import-export-format.html)
-* [無名小站XML](http://www.wretch.cc/blog/) (import only)
-* [Blogger Atom](http://www.blogger.com) (export only)
+## 注意：已知問題
 
-## Running Blogtrans
+* 無名XML檔會有日期、格式不正確（如2月31日、XML損壞）
+* Blogger標籤特殊字元會造成匯出不完全
+
+細節及其他已知問題詳見[FAQ](http://miaout17.github.io/blogtrans/faq.html)
+
+## 更新記錄
+
+Blogtrans 1.1.0 (2013/09/13)
+
+* 自動修正無名XML檔日期錯誤的問題（如自動將2/31修正為2/28）
+
+## 執行Blogtrans
 
 ### Windows
 
