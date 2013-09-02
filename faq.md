@@ -2,13 +2,12 @@
 layout: default
 title: 常見問題
 ---
+
 ## 找不到MSVCP71.DLL或MSVCR71.DLL
 
-這是VC執行時期需要的動態連結函式庫檔，去一個你信任的網站下載。
+這是VC執行時期需要的動態連結函式庫檔，請自行至信任的網站下載。
 
-[DLL-Files](http://www.dll-files.com/)這個站似乎滿知名的，提供的檔案應該沒問題：[msvcp71.dll](http://www.dll-files.com/dllindex/dll-files.shtml?msvcp71), [msvcr71.dll](http://www.dll-files.com/dllindex/dll-files.shtml?msvcr71)
-
-建議下載完還是掃毒一下，解壓後放到系統資料夾windows(winnt)\system32即可。
+下載完建議掃毒一下，解壓後放到系統資料夾windows(winnt)\system32即可。
 
 ## 下載Blogtrans程式後得到一個7z檔，我打不開
 
