@@ -3,6 +3,7 @@ from blogtrans.data import *
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from blogtrans.util.XMLStripper import strip_xml
+import calendar
 import re
 
 DATETIME_RE = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$')
@@ -20,12 +21,23 @@ def my_rfind(str, pattern) :
 def log(message) :
     print message
 
+def _fallback_parse_date(date_str) :
+    matchdata = DATETIME_RE.match(date_str)
+    if matchdata==None:
+        raise Exception("日期格式不正確：{}".format(date_str))
+    params = [int(i) for i in list(matchdata.groups())]
+    max_day = calendar.monthrange(params[0], params[1])[1]
+    params[2] = min(params[2], max_day)
+    result = datetime(*params)
+    log("已將%s修正為%s" % (date_str, result.strftime("%Y-%m-%d %H:%M:%S")))
+    return result
+
 def parse_date(date_str) :
     try:
         return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
     except Exception as e:
-        log("解析日期失敗：{}".format(date_str))
-        raise e
+        log("解析日期失敗：{}。嘗試修正日期...".format(date_str))
+        return _fallback_parse_date(date_str)
 
 class WretchImporter :
     def __init__(self, filename) :
