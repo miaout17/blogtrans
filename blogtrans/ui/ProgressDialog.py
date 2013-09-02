@@ -1,4 +1,4 @@
-# coding=big5
+# coding=utf8
 # DEPRECATED...REMOVE ME
 
 import wx._core as wx
@@ -23,8 +23,8 @@ class ProgressDialog(wx.Dialog) :
         self.textctrl = wx.TextCtrl(self, 1, style=wx.TE_MULTILINE)
         self.textctrl.SetEditable(False)
 
-        self.break_button = wx.Button(self, ID_BREAK, "¤¤Â_¾Ş§@")
-        self.close_button = wx.Button(self, ID_CLOSE, "Ãö³¬µøµ¡")
+        self.break_button = wx.Button(self, ID_BREAK, "ä¸­æ–·æ“ä½œ")
+        self.close_button = wx.Button(self, ID_CLOSE, "é—œé–‰è¦–çª—")
         self.close_button.Enable(False)
 
         wx.EVT_BUTTON(self, ID_CLOSE, self.OnClose)
@@ -75,7 +75,7 @@ class ProgressDialog(wx.Dialog) :
         except Exception, inst :
             type, value, tb = sys.exc_info()
             self.Print("\n".join(traceback.format_exception(type, value, tb)) )
-            self.Print("µo¥Í¿ù»~!!")
+            self.Print("ç™¼ç”ŸéŒ¯èª¤!!")
 
         if self.status == self.FAIL :
             pass

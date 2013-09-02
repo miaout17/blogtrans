@@ -1,4 +1,4 @@
-# coding=big5
+# coding=utf8
 
 import wx._core as wx
 from wx.lib.customtreectrl import *
@@ -31,7 +31,7 @@ class BlogTreeCtrl(CustomTreeCtrl) :
             if len(article.comments)!=0 : self.SetItemHasChildren(article_item, True)
 
             for comment in article.comments :
-                comment_item = self.AppendItem(article_item, comment.author+u" ªº¦^À³", ct_type=1, data=comment)
+                comment_item = self.AppendItem(article_item, comment.author+u" çš„å›žæ‡‰", ct_type=1, data=comment)
                 self.CheckItem(comment_item)
         self.Expand(root)
 

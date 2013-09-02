@@ -1,4 +1,4 @@
-# coding=big5
+# coding=utf8
 
 # Deprecated after Rev15
 import wx._core as wx
@@ -21,7 +21,7 @@ class BloggerExportProgress(ProgressDialog) :
     def _Run(self) :
         try:
             for article in self.blogdata.articles :
-                self.Print(u"¥¿¦b¶×¥X¤å³¹: %s" % article.title)
+                self.Print(u"æ­£åœ¨åŒ¯å‡ºæ–‡ç« : %s" % article.title)
 
                 if self.user_break : return
                 post = self.blogger.CreatePost(article)
@@ -32,13 +32,13 @@ class BloggerExportProgress(ProgressDialog) :
 
                 for comment in article.comments :
                     if self.user_break : return
-                    self.Print(u"¥¿¦b¶×¥X¯d¨¥: %s" % comment.author)
+                    self.Print(u"æ­£åœ¨åŒ¯å‡ºç•™è¨€: %s" % comment.author)
                     self.blogger.CreateComment(article_id, comment)
         except Exception, inst :
             type, value, tb = sys.exc_info()
             self.Print("\n".join(traceback.format_exception(type, value, tb)) )
             self.status = self.FAIL
-            self.Print("µLªk¤W¶Ç¤å³¹!!\n¥i¯à¬O¥Ñ©ó¶W¹L¨C¤Ñ50½gªº­­¨î")
+            self.Print("ç„¡æ³•ä¸Šå‚³æ–‡ç« !!\nå¯èƒ½æ˜¯ç”±æ–¼è¶…éæ¯å¤©50ç¯‡çš„é™åˆ¶")
 
 
 
@@ -53,15 +53,15 @@ class BloggerAuthUI(wx.Dialog) :
         panel1 = wx.Panel(self, -1)
         grid1 = wx.GridSizer(3, 2)
 
-        grid1.Add(wx.StaticText(panel1, -1, '±b¸¹(Email): ', (5, 5)), 0,    wx.ALIGN_CENTER_VERTICAL)
+        grid1.Add(wx.StaticText(panel1, -1, 'å¸³è™Ÿ(Email): ', (5, 5)), 0,    wx.ALIGN_CENTER_VERTICAL)
         self.email_ctrl = wx.TextCtrl(panel1, -1, size=(120, -1))
         grid1.Add(self.email_ctrl)
 
-        grid1.Add(wx.StaticText(panel1, -1, '±K½X: ', (5, 5)), 0, wx.ALIGN_CENTER_VERTICAL)
+        grid1.Add(wx.StaticText(panel1, -1, 'å¯†ç¢¼: ', (5, 5)), 0, wx.ALIGN_CENTER_VERTICAL)
         self.password_ctrl = wx.TextCtrl(panel1, -1, size=(120, -1), style=wx.TE_PASSWORD)
         grid1.Add(self.password_ctrl)
 
-        auth_button = wx.Button(panel1, ID_AUTH, 'ÅçÃÒBlogger')
+        auth_button = wx.Button(panel1, ID_AUTH, 'é©—è­‰Blogger')
         grid1.Add(auth_button, wx.EXPAND)
         wx.EVT_BUTTON(self, ID_AUTH, self.OnAuth)
 
@@ -74,8 +74,8 @@ class BloggerAuthUI(wx.Dialog) :
         panel4 = wx.Panel(self, -1)
         sizer4 = wx.GridSizer(1, 2, 2, 2)
 
-        button_ok = wx.Button(panel4, ID_OK, '¶}©l¶×¥X')
-        button_close = wx.Button(panel4, ID_CANCEL, '¨ú®ø¨ÃÃö³¬')
+        button_ok = wx.Button(panel4, ID_OK, 'é–‹å§‹åŒ¯å‡º')
+        button_close = wx.Button(panel4, ID_CANCEL, 'å–æ¶ˆä¸¦é—œé–‰')
         sizer4.Add(button_ok, wx.EXPAND)
         sizer4.Add(button_close, wx.EXPAND)
 

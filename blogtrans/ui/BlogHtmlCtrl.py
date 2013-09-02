@@ -1,4 +1,4 @@
-# coding=big5
+# coding=utf8
 #from wx import *
 
 import wx._core as wx
@@ -18,10 +18,10 @@ def make_html_list(list) :
 def CommentToHTML(comment) :
         info = []
 
-        info.append(u"¯d¨¥ªÌ: " + comment.author )
+        info.append(u"ç•™è¨€è€…: " + comment.author )
         info.append(u"Email: " +comment.email )
-        info.append(u"ºô§}: " + comment.url)
-        info.append(u"¤é´Á: " + comment.date.strftime("%Y-%m-%d %H:%M:%S") )
+        info.append(u"ç¶²å€: " + comment.url)
+        info.append(u"æ—¥æœŸ: " + comment.date.strftime("%Y-%m-%d %H:%M:%S") )
 
         return make_html_list(info)+comment.body
 
@@ -32,15 +32,15 @@ class BlogHtmlWindow(HtmlWindow):
     def ShowArticle(self, article) :
         info = []
 
-        info.append(u"§@ªÌ: "+article.author )
-        info.append(u"¼ĞÃD: "+article.title )
-        info.append(u"¤é´Á: "+article.date.strftime("%Y-%m-%d %H:%M:%S") )
-        info.append(u"Ãş§O: "+string.join(article.category, ",") )
+        info.append(u"ä½œè€…: "+article.author )
+        info.append(u"æ¨™é¡Œ: "+article.title )
+        info.append(u"æ—¥æœŸ: "+article.date.strftime("%Y-%m-%d %H:%M:%S") )
+        info.append(u"é¡åˆ¥: "+string.join(article.category, ",") )
 
-        if article.status==Article.PUBLISH : status = u"¤½¶}"
-        elif article.status==Article.DRAFT : status = u"¯ó½Z"
-        else : status = u"¨p±K"
-        info.append(u"ª¬ºA: "+status)
+        if article.status==Article.PUBLISH : status = u"å…¬é–‹"
+        elif article.status==Article.DRAFT : status = u"è‰ç¨¿"
+        else : status = u"ç§å¯†"
+        info.append(u"ç‹€æ…‹: "+status)
 
         self.SetPage(make_html_list(info)+article.body+article.extended_body)
 
