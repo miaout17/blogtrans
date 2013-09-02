@@ -1,7 +1,11 @@
+# coding=utf8
 from blogtrans.data import *
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from blogtrans.util.XMLStripper import strip_xml
+import re
+
+DATETIME_RE = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$')
 
 def my_rfind(str, pattern) :
     pat_len = len(pattern)
@@ -21,11 +25,20 @@ class WretchImporter :
         try :
             return self.__parse(False)
         except :
+            self.log("嘗試清理XML格式再重新解析...")
             return self.__parse(True)
 
-    @staticmethod
-    def parse_date(date_str) :
-        return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+    @classmethod
+    def log(self, message) :
+        print message
+
+    @classmethod
+    def parse_date(self, date_str) :
+        try:
+            return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+        except Exception as e:
+            self.log("解析日期失敗：{}".format(date_str))
+            raise e
 
     def __parse(self, preprocess) :
 
