@@ -98,10 +98,10 @@ class MainWindow(wx.Frame):
                 data.articles.append(a)
                 a.comments = []
 
-            for comment in article.comments :
-                if comment in checked :
-                    a.comments.append(comment)
-                    comment_count += 1
+                for comment in article.comments :
+                    if comment in checked :
+                        a.comments.append(comment)
+                        comment_count += 1
 
         return data
 
