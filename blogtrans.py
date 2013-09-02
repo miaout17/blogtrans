@@ -25,6 +25,7 @@ def trap_error(func) :
 def main() :
     long_opts = [ "import-wretch=", "import-blogger=" ]
     opts, args = getopt.getopt(sys.argv[1:], "n", long_opts)
+    blogdata = None
 
     no_window = False
 
@@ -40,7 +41,9 @@ def main() :
 
     if not no_window :
         app = wx.PySimpleApp()
-        frame=MainWindow()
+        frame = MainWindow()
+        if blogdata!=None:
+            frame.setBlogData(blogdata)
         app.MainLoop()
 
 if __name__ == "__main__" :
