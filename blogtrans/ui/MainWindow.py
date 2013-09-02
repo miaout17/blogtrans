@@ -27,6 +27,7 @@ ID_EXPORT_BLOGGER = wx.NewId()
 ID_EXPORT_MT = wx.NewId()
 
 ID_TOOL_COMBINE_COMMENT = wx.NewId()
+ID_TOOL_CLEAR_CATEGORY = wx.NewId()
 
 
 class MainWindow(wx.Frame):
@@ -55,6 +56,9 @@ class MainWindow(wx.Frame):
         tool_menu = wx.Menu()
         tool_menu.Append(ID_TOOL_COMBINE_COMMENT, u"結合留言至文章", u"結合留言至文章")
         wx.EVT_MENU(self, ID_TOOL_COMBINE_COMMENT, self.OnCombineComment)
+
+        tool_menu.Append(ID_TOOL_CLEAR_CATEGORY, u"清除所有文章類別", u"清除所有文章類別")
+        wx.EVT_MENU(self, ID_TOOL_CLEAR_CATEGORY, self.OnClearCategory)
 
         menuBar = wx.MenuBar()
         menuBar.Append(import_menu,u"匯入(&I)")
@@ -222,6 +226,11 @@ class MainWindow(wx.Frame):
                 comment_htmls = map(CommentToHTML, a.comments)
                 a.extended_body += "<hr/>" + "<br><br><br><br><hr/>".join(comment_htmls)
             a.comments = []
+        self.setBlogData(self.blogdata)
+
+    def OnClearCategory(self, e) :
+        for a in self.blogdata.articles :
+            a.category = []
         self.setBlogData(self.blogdata)
 
     def OnSelChanged(self, e) :
