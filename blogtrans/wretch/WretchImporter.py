@@ -24,19 +24,19 @@ def log(message) :
 def _fallback_parse_date(date_str) :
     matchdata = DATETIME_RE.match(date_str)
     if matchdata==None:
-        raise Exception("日期格式不正確：{}".format(date_str))
+        raise Exception(u"日期格式不正確：{}".format(date_str))
     params = [int(i) for i in list(matchdata.groups())]
     max_day = calendar.monthrange(params[0], params[1])[1]
     params[2] = min(params[2], max_day)
     result = datetime(*params)
-    log("已將%s修正為%s" % (date_str, result.strftime("%Y-%m-%d %H:%M:%S")))
+    log(u"已將%s修正為%s" % (date_str, result.strftime("%Y-%m-%d %H:%M:%S")))
     return result
 
 def parse_date(date_str) :
     try:
         return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
     except Exception as e:
-        log("解析日期失敗：{}。嘗試修正日期...".format(date_str))
+        log(u"解析日期失敗：{}。嘗試修正日期...".format(date_str))
         return _fallback_parse_date(date_str)
 
 class WretchImporter :
@@ -47,7 +47,7 @@ class WretchImporter :
         try :
             return self.__parse(False)
         except :
-            log("嘗試清理XML格式再重新解析...")
+            log(u"嘗試清理XML格式再重新解析...")
             return self.__parse(True)
 
     @classmethod
