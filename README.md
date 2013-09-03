@@ -10,6 +10,7 @@ Blogtrans是一套轉換blog資料格式的開放源碼軟體
   可能是由於文章類別有特殊符號，可試著使用「工具：清除所有文章類別」
 
 細節及其他已知問題詳見[FAQ](http://miaout17.github.io/blogtrans/faq.html)，如無法解決歡迎[回報問題](http://miaout17.github.io/blogtrans/report.html)。
+也可參考[作者Blog](http://blog.miaout17.net/)的資訊。
 
 ## 支援格式
 
