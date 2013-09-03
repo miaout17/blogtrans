@@ -1,6 +1,6 @@
 # Blogtrans
 
-Blogtrans是一套轉換blog資料格式的開放源碼軟體目前支援：
+Blogtrans是一套轉換blog資料格式的開放源碼軟體
 
 ## 注意：已知問題
 
