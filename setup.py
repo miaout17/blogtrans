@@ -4,7 +4,7 @@ import py2exe
 import blogtrans
 
 setup(
-    data_files = ["README", "LICENSE"],
+    data_files = ["README.md", "LICENSE"],
     console=["blogtrans.py"],
     options = {
         "py2exe": {
